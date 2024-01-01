@@ -75,6 +75,16 @@ std::string Compound::name()
 	return mName;
 }
 
+int Compound::X()
+{
+	return mX;
+}
+
+int Compound::Y()
+{
+	return mY;
+}
+
 int Compound::W()
 {
 	return mW;

@@ -4,8 +4,11 @@
 
 #include <stdexcept>
 
+#include "Renderable.h"
+
+
 // uses raw sdl shapes, no textures
-class Block
+class Block : public Renderable
 {
 public:
 	Block(int w, int h);
@@ -14,15 +17,15 @@ public:
 	Block& operator=(const Block& other);
 
 	void updateLocalPos(int x, int y);
-	void updatePos(int x, int y);
-	void movePos(int x, int y);
-	void render(SDL_Renderer* renderer);
+
+	void updatePos(int x, int y) override;
+	void render(SDL_Renderer* renderer) override;
 
 	int localX();
 	int localY();
 
-	int X();
-	int Y();
+	int X() override;
+	int Y() override;
 	int W();
 	int H();
 

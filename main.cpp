@@ -1,11 +1,18 @@
+// memleak check
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
 #include <vector>
 
-#include "Headers/NTexture.h";
-#include "Headers/SDLManager.h";
+
+
+#include "Headers/NTexture.h"
+#include "Headers/SDLManager.h"
 #include "Headers/InputHandler.h"
 #include "Headers/Block.h"
 #include "Headers/Compound.h"
@@ -37,15 +44,7 @@ int main(int argc, char* args[])
 
 	SDL_Renderer* renderer = sdlManager.getRenderer();
 
-	std::vector<Compound*> compounds
-	{
-		CompoundBuilder::L(),
-		CompoundBuilder::cube(),
-		CompoundBuilder::line(),
-		CompoundBuilder::wasd(),
-		CompoundBuilder::S()
-	};
-
+	//sdlManager.testAddRenderables();
 
 	bool quit = false;
 
@@ -66,10 +65,11 @@ int main(int argc, char* args[])
 					quit = true;
 				if (mEventHandler.key.keysym.sym == SDLK_e)
 				{
-					for (const auto& c : compounds)
+					printf("e");
+					/*for (auto& c : renderables)
 					{
-						c->rotateCw();
-					}
+						((Compound*)c)->rotateCw();
+					}*/
 				}
 			}
 		}
@@ -77,41 +77,15 @@ int main(int argc, char* args[])
 		if (quit)
 			break;
 
-
-		// Clear screen
-		SDL_SetRenderDrawColor(renderer, 0x7F, 0x7F, 0x7F, 0xFF);
-		SDL_RenderClear(renderer);
-
-		// Update phase
-		//boxComp.updatePos(x++, y++);
-		compounds[0]->updatePos(100, 100);
-		compounds[1]->updatePos(200, 100);
-		compounds[2]->updatePos(300, 100);
-		compounds[3]->updatePos(100, 200);
-		compounds[4]->updatePos(200, 200);
-
 		// Render phase
-		for(auto& c : compounds)
-		{
-			c->render(renderer);
-		}
-
-		// Update screen
-		SDL_RenderPresent(renderer);
+		sdlManager.render();
 	}
-
-	for (auto& c : compounds)
-	{
-		if (c != nullptr)
-		{
-			delete c;
-			c = nullptr;
-		}
-	}
-
-	compounds.clear();
 
 	sdlManager.close();
+
+#ifdef _DEBUG
+	_CrtDumpMemoryLeaks();
+#endif
 
 	return 0;
 }

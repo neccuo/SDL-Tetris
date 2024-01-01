@@ -17,7 +17,7 @@ public:
     bool loadFromFile(std::string path);
 
     //Deallocates texture
-    void free();
+    void freeTexture();
 
     // set color modulation
     void setColor(Uint8 red, Uint8 green, Uint8 blue);

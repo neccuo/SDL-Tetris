@@ -1,5 +1,4 @@
 #include "Headers/Block.h"
-#pragma once
 
 Block::Block(int w, int h) : mW { w }, mH { h }
 {
@@ -37,12 +36,6 @@ void Block::updatePos(int x, int y)
 {
 	mX = x;
 	mY = y;
-}
-
-void Block::movePos(int x, int y)
-{
-	mX += x;
-	mY += y;
 }
 
 void Block::render(SDL_Renderer* renderer)
