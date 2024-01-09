@@ -12,6 +12,7 @@ class Block : public Renderable
 {
 public:
 	Block(int w, int h);
+	~Block() override;
 
 	// not necessary but cool to have
 	Block& operator=(const Block& other);

@@ -5,11 +5,11 @@
 class CompoundBuilder
 {
 public:
-	static Compound* L();
-	static Compound* cube();
-	static Compound* line();
-	static Compound* wasd();
-	static Compound* S();
+	static Compound* L(int x = 0, int y = 0);
+	static Compound* cube(int x = 0, int y = 0);
+	static Compound* line(int x = 0, int y = 0);
+	static Compound* wasd(int x = 0, int y = 0);
+	static Compound* S(int x = 0, int y = 0);
 private:
-	static Compound* build(std::vector<std::pair<int, int>> coors, std::string name, int w = 16, int h = 16);
+	static Compound* build(const std::vector<std::pair<int, int>>& coors, std::string name, int x, int y, int w = 16, int h = 16);
 };

@@ -1,6 +1,6 @@
 #include "Headers/CompoundBuilder.h"
 
-Compound* CompoundBuilder::L()
+Compound* CompoundBuilder::L(int x, int y)
 {
 	std::vector<std::pair<int, int>> coors
 	{
@@ -10,10 +10,10 @@ Compound* CompoundBuilder::L()
 		{1,2}
 	};
 
-	return build(coors, "L");
+	return build(coors, "L", x, y);
 }
 
-Compound* CompoundBuilder::cube()
+Compound* CompoundBuilder::cube(int x, int y)
 {
 	std::vector<std::pair<int, int>> coors
 	{
@@ -23,10 +23,10 @@ Compound* CompoundBuilder::cube()
 		{1,1}
 	};
 
-	return build(coors, "CUBE");
+	return build(coors, "CUBE", x, y);
 }
 
-Compound* CompoundBuilder::line()
+Compound* CompoundBuilder::line(int x, int y)
 {
 	std::vector<std::pair<int, int>> coors
 	{
@@ -36,10 +36,10 @@ Compound* CompoundBuilder::line()
 		{0,3}
 	};
 
-	return build(coors, "LINE");
+	return build(coors, "LINE", x, y);
 }
 
-Compound* CompoundBuilder::wasd()
+Compound* CompoundBuilder::wasd(int x, int y)
 {
 	std::vector<std::pair<int, int>> coors
 	{
@@ -49,10 +49,10 @@ Compound* CompoundBuilder::wasd()
 		{1,1}
 	};
 
-	return build(coors, "WASD");
+	return build(coors, "WASD", x, y);
 }
 
-Compound* CompoundBuilder::S()
+Compound* CompoundBuilder::S(int x, int y)
 {
 	std::vector<std::pair<int, int>> coors
 	{
@@ -62,12 +62,13 @@ Compound* CompoundBuilder::S()
 		{2,1}
 	};
 
-	return build(coors, "S");
+	return build(coors, "S", x, y);
 }
 
-Compound* CompoundBuilder::build(std::vector<std::pair<int, int>> coors, std::string name, int w, int h)
+Compound* CompoundBuilder::build(const std::vector<std::pair<int, int>>& coors, std::string name, int x, int y, int w, int h)
 {
 	Compound* compound = new Compound(name);
+	compound->updatePos(x, y);
 
 	for (const auto& pr: coors)
 	{

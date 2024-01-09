@@ -16,7 +16,7 @@ class Compound : public Renderable
 public:
 	Compound();
 	Compound(std::string nameIn);
-	~Compound();
+	~Compound() override;
 	//void addBlock(Block* block);
 	void addBlock(int x, int y, int w, int h);
 

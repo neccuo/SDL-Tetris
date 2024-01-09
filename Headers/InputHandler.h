@@ -2,6 +2,8 @@
 
 #include <SDL.h>
 
+enum class GameState { NullState, MenuState, PlayState};
+
 class InputHandler
 {
 public:

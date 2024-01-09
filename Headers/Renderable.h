@@ -9,4 +9,6 @@ public:
 	virtual void render(SDL_Renderer* renderer) = 0;
 	virtual int X() = 0;
 	virtual int Y() = 0;
+
+	virtual ~Renderable() {};
 };

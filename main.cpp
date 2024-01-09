@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
 #include <vector>
-
 
 
 #include "Headers/NTexture.h"
@@ -18,6 +18,22 @@
 #include "Headers/Compound.h"
 #include "Headers/CompoundBuilder.h"
 
+#include <iostream>
+
+// Global new operator overload
+void* operator new(size_t size) 
+{
+	void* ptr = malloc(size);
+	std::cout << "Memory allocated in\t0x" << ptr << ". Size: " << size << " bytes." << std::endl;
+	return ptr; // Use malloc for memory allocation
+}
+
+// Global delete operator overload
+void operator delete(void* ptr) noexcept 
+{
+	std::cout << "Memory deallocated in\t0x" << ptr << "." << std::endl;
+	free(ptr); // Use free for memory deallocation
+}
 
 
 SDL_Texture* loadTexture(std::string pathIn, SDL_Renderer* rendererIn);
@@ -44,7 +60,7 @@ int main(int argc, char* args[])
 
 	SDL_Renderer* renderer = sdlManager.getRenderer();
 
-	//sdlManager.testAddRenderables();
+	sdlManager.testAddRenderables();
 
 	bool quit = false;
 
@@ -52,6 +68,40 @@ int main(int argc, char* args[])
 	int y = 0;
 
 	SDL_Event mEventHandler;
+
+	// same as
+	/*Renderable* lShape = CompoundBuilder::L();
+	lShape->updatePos(100, 100);*/
+
+	std::vector<std::pair<int, int>> coors
+	{
+		{0,0},
+		{0,1},
+		{0,2},
+		{1,2}
+	};
+
+	//Compound* compound = new Compound("L");
+	int w = 16;
+	int h = 16;
+
+	/*for (const auto& pr : coors)
+	{
+		int i = pr.first;
+		int j = pr.second;
+		compound->addBlock(i * w, j * h, w, h);
+	}*/
+
+	//printf("%s\tdimensions (%d, %d)\n", compound->name().c_str(), compound->W(), compound->H());
+
+	//Renderable* lShape = compound;
+
+
+	/*printf("Sizeof [Block]: %d\n", sizeof(Block));
+	printf("Sizeof [Compound]: %d\n", sizeof(Compound));
+	printf("Sizeof [Renderable]: %d\n", sizeof(Renderable));*/
+
+	//std::cout << sizeof(std::pair<int, int>) << std::endl;
 
 	while (1)
 	{
@@ -77,15 +127,15 @@ int main(int argc, char* args[])
 		if (quit)
 			break;
 
+		// Update phase
+
 		// Render phase
 		sdlManager.render();
 	}
 
 	sdlManager.close();
 
-#ifdef _DEBUG
 	_CrtDumpMemoryLeaks();
-#endif
 
 	return 0;
 }

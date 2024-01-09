@@ -22,6 +22,10 @@ Block& Block::operator=(const Block& other)
 	return *this;
 }
 
+Block::~Block()
+{
+}
+
 void Block::updateLocalPos(int x, int y)
 {
 	if (x < 0 || y < 0)
@@ -83,6 +87,9 @@ void Block::renderFillRect(SDL_Renderer* renderer)
 
 void Block::renderOutlineRect(SDL_Renderer* renderer)
 {
+	// use SDL_Color
+	// 100% visual, no effect on collision
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_RenderDrawRect(renderer, &mRect);
+	SDL_Rect outline = {mRect.x-1, mRect.y-1, mRect.w+1, mRect.h+1};
+	SDL_RenderDrawRect(renderer, &outline);
 }
